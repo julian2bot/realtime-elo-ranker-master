@@ -16,13 +16,30 @@ export class RankingsService {
 
   // Récupérer tout le classement
   getAllRankings(): PlayerRanking[] {
-    return Array.from(this.rankingCache.entries()).map(([id, rank]) => ({
-      id,
-      rank,
-    }));
+    return Array.from(this.rankingCache.entries())
+      .map(([id, rank]) => ({
+        id,
+        rank,
+      }))
+      .sort((a, b) => b.rank - a.rank); // Optionnel: Trier par rang décroissant
   }
 
-  // Mettre à jour ou ajouter un joueur
+  // Créer un nouveau joueur
+  createPlayer(id: string): PlayerRanking {
+    if (this.rankingCache.has(id)) {
+      throw new Error('Player already exists');
+    }
+    const defaultRank = 1200;
+    this.rankingCache.set(id, defaultRank);
+    return { id, rank: defaultRank };
+  }
+
+  // Vérifier si un joueur existe
+  playerExists(id: string): boolean {
+    return this.rankingCache.has(id);
+  }
+
+  // Mettre à jour ou ajouter un joueur (utilisé par la logique de match)
   updateRanking(id: string, rank: number) {
     this.rankingCache.set(id, rank);
   }
