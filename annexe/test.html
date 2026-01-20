@@ -1,0 +1,13 @@
+<script>
+  const eventSource = new EventSource('http://localhost:8888/api/ranking/events');
+  
+  eventSource.onmessage = (event) => {
+    const update = JSON.parse(event.data);
+    console.log("Mise Ã  jour reÃ§ue !", update);
+    document.body.innerHTML += `<p>Joueur ${update.player.id} : ${update.player.rank}</p>`;
+  };
+
+  eventSource.onerror = (err) => {
+    console.error("Erreur SSE :", err);
+  };
+</script>

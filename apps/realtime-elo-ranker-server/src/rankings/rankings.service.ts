@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Subject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface PlayerRanking {
   id: string;
@@ -13,6 +15,9 @@ export class RankingsService {
   }
   // Le cache en mémoire
   private rankingCache: Map<string, number> = new Map();
+
+  // Le Subject qui servira de "diffuseur"
+  private rankingUpdates$ = new Subject<PlayerRanking>();
 
   // Récupérer tout le classement
   getAllRankings(): PlayerRanking[] {
@@ -31,7 +36,9 @@ export class RankingsService {
     }
     const defaultRank = 1200;
     this.rankingCache.set(id, defaultRank);
-    return { id, rank: defaultRank };
+    const newPlayer = { id, rank: defaultRank };
+    this.notifyUpdate(newPlayer);
+    return newPlayer;
   }
 
   // Vérifier si un joueur existe
@@ -42,10 +49,23 @@ export class RankingsService {
   // Mettre à jour ou ajouter un joueur (utilisé par la logique de match)
   updateRanking(id: string, rank: number) {
     this.rankingCache.set(id, rank);
+    this.notifyUpdate({ id, rank });
   }
 
   // Récupérer le rang d'un seul joueur
   getRanking(id: string): number | undefined {
     return this.rankingCache.get(id);
+  }
+
+  // MÃ©thode pour s'abonner au flux
+  getRankingUpdates(): Observable<any> {
+    return this.rankingUpdates$.asObservable().pipe(
+      map(player => ({ data: { type: 'RankingUpdate', player } }))
+    );
+  }
+
+  // MÃ©thode pour envoyer une notification
+  notifyUpdate(player: PlayerRanking) {
+    this.rankingUpdates$.next(player);
   }
 }

@@ -5,6 +5,10 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Activer le CORS pour permettre les requêtes depuis d'autres ports (ex: 9090)
+  app.enableCors();
+
   const config = new DocumentBuilder()
     .setTitle('Realtime ELO Ranker')
     .setDescription('API documentation for the Realtime ELO Ranker')
@@ -12,8 +16,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
-  
-  
+
+
   await app.listen(process.env.PORT ?? 8888);
 
 
