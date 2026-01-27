@@ -19,27 +19,6 @@ export class RankingsController {
         return rankings;
     }
 
-    // @Post('player')
-    // @HttpCode(200) // Swagger spec uses 200 for player creation
-    // async createPlayer(@Body() body: { id: string }): Promise<PlayerRanking> {
-    //     if (!body.id || typeof body.id !== 'string') {
-    //         throw new BadRequestException({
-    //             code: 400,
-    //             message: 'L’identifiant du joueur n’est pas valide',
-    //         });
-    //     }
-    //     try {
-    //         return await this.rankingsService.createPlayer(body.id);
-    //     } catch (error) {
-    //         if (error.message === 'Player already exists') {
-    //             throw new ConflictException({
-    //                 code: 409,
-    //                 message: 'Le joueur existe déjà',
-    //             });
-    //         }
-    //         throw error;
-    //     }
-    // }
 
     // Endpoint temporaire pour tester l'ajout manuel dans le cache
     @Post('ranking/test')

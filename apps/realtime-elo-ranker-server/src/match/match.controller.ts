@@ -31,6 +31,7 @@ export class MatchController {
         await this.rankingsService.updateRanking(winner, nextRankWinner);
         await this.rankingsService.updateRanking(loser, nextRankLoser);
 
+        await this.matchService.saveMatch(winner, loser, rankWinner, rankLoser, nextRankWinner, nextRankLoser);
         return {
             winner: { id: winner, rank: nextRankWinner },
             loser: { id: loser, rank: nextRankLoser },

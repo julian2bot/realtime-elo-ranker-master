@@ -1,8 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { MatchUpdateResult } from '../all.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Match } from './match.entity';
 
 @Injectable()
 export class MatchService {
+    constructor(
+        @InjectRepository(Match)
+        private matchRepository: Repository<Match>,
+    ) { }
     private readonly K = 32;
 
     private expectedScore(ratingA: number, ratingB: number): number {
@@ -14,13 +21,24 @@ export class MatchService {
         const expectedA = this.expectedScore(ratingA, ratingB);
         const expectedB = this.expectedScore(ratingB, ratingA);
 
-        const newRatingA = ratingA + this.K * (scoreA - expectedA);
-        const newRatingB = ratingB + this.K * ((1 - scoreA) - expectedB);
+        const newRatingA = Math.round(ratingA + this.K * (scoreA - expectedA));
+        const newRatingB = Math.round(ratingB + this.K * ((1 - scoreA) - expectedB));
 
         return {
-        newRankA: Math.round(newRatingA),
-        newRankB: Math.round(newRatingB),
+        newRankA: newRatingA,
+        newRankB: newRatingB,
         };
     }
 
+    async saveMatch(player1: string, player2: string, player1Rank: number, player2Rank: number, player1NewRank: number, player2NewRank: number) {
+        const match = this.matchRepository.create({
+            player1,
+            player2,
+            player1Rank,
+            player2Rank,
+            player1NewRank,
+            player2NewRank,
+        });
+        await this.matchRepository.save(match);
+    }
 }

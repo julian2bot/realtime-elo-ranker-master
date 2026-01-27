@@ -46,6 +46,7 @@ export class PlayerService implements OnModuleInit {
   // Get avg rank Player
   async getAvgRank(): Promise<number> {
     const players = await this.playerRepository.find();
+    if (players.length === 0) return 1200;
     const avgRank = players.reduce((acc, player) => acc + player.rank, 0) / players.length;
     return Math.round(avgRank);
   }

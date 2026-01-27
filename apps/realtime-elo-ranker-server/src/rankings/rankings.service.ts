@@ -18,12 +18,7 @@ export class RankingsService implements OnModuleInit {
     console.log('Initializing Rankings cache from Database...');
     const players = await this.playerRepository.find();
     if (players.length === 0) {
-      console.log('Database empty, seeding with default players...');
-      // // Optionnel: Seeder avec des fakes si vide
-      // await this.createPlayer('player-1');
-      // await this.updateRanking('player-1', 1200);
-      // await this.createPlayer('player-2');
-      // await this.updateRanking('player-2', 1000);
+      console.log('Database empty, players will be created via PlayerService.');
     } else {
       for (const p of players) {
         this.rankingCache.set(p.id, p.rank);
