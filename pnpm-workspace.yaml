@@ -44,3 +44,4 @@ onlyBuiltDependencies:
   - '@nestjs/core'
   - '@tailwindcss/oxide'
   - sharp
+  - sqlite3

@@ -1,18 +1,37 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Player } from '../player/player.entity';
+import { PlayerRanking } from '../all.interface';
 
-export interface PlayerRanking {
-  id: string;
-  rank: number;
-}
 
 @Injectable()
-export class RankingsService {
-  constructor() {
-    this.updateRanking('player-1', 1200);
-    this.updateRanking('player-2', 1000);
+export class RankingsService implements OnModuleInit {
+  constructor(
+    @InjectRepository(Player)
+    private playerRepository: Repository<Player>,
+  ) { }
+
+  async onModuleInit() {
+    console.log('Initializing Rankings cache from Database...');
+    const players = await this.playerRepository.find();
+    if (players.length === 0) {
+      console.log('Database empty, seeding with default players...');
+      // // Optionnel: Seeder avec des fakes si vide
+      // await this.createPlayer('player-1');
+      // await this.updateRanking('player-1', 1200);
+      // await this.createPlayer('player-2');
+      // await this.updateRanking('player-2', 1000);
+    } else {
+      for (const p of players) {
+        this.rankingCache.set(p.id, p.rank);
+      }
+      console.log(`Loaded ${players.length} players into cache.`);
+    }
   }
+
   // Le cache en mémoire
   private rankingCache: Map<string, number> = new Map();
 
@@ -26,19 +45,7 @@ export class RankingsService {
         id,
         rank,
       }))
-      .sort((a, b) => b.rank - a.rank); // Optionnel: Trier par rang décroissant
-  }
-
-  // Créer un nouveau joueur
-  createPlayer(id: string): PlayerRanking {
-    if (this.rankingCache.has(id)) {
-      throw new Error('Player already exists');
-    }
-    const defaultRank = 1200;
-    this.rankingCache.set(id, defaultRank);
-    const newPlayer = { id, rank: defaultRank };
-    this.notifyUpdate(newPlayer);
-    return newPlayer;
+      .sort((a, b) => b.rank - a.rank);
   }
 
   // Vérifier si un joueur existe
@@ -47,7 +54,11 @@ export class RankingsService {
   }
 
   // Mettre à jour ou ajouter un joueur (utilisé par la logique de match)
-  updateRanking(id: string, rank: number) {
+  async updateRanking(id: string, rank: number) {
+    // Save to DB
+    await this.playerRepository.save({ id, rank });
+
+    // Update Cache
     this.rankingCache.set(id, rank);
     this.notifyUpdate({ id, rank });
   }
