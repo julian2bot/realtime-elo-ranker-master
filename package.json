@@ -11,7 +11,10 @@
     "libs:ui:build": "pnpm run --filter ./libs/ui build",
     "libs:ui:test": "pnpm run --filter ./libs/ui test",
     "docs:swagger:start": "pnpm run --filter ./docs/swagger start",
-    "apps:server:dev": "pnpm run --filter realtime-elo-ranker-server start:dev"
+    "apps:server:dev": "pnpm run --filter realtime-elo-ranker-server start:dev",
+    "apps:server:db:migrate": "pnpm run --filter realtime-elo-ranker-server migration:run",
+    "apps:server:db:generate": "pnpm run --filter realtime-elo-ranker-server migration:generate",
+    "apps:server:db:revert": "pnpm run --filter realtime-elo-ranker-server migration:revert"
   },
   "devDependencies": {
     "generate-react-cli": "catalog:",
