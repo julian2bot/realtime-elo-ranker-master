@@ -14,7 +14,8 @@
     "apps:server:dev": "pnpm run --filter realtime-elo-ranker-server start:dev",
     "apps:server:db:migrate": "pnpm run --filter realtime-elo-ranker-server migration:run",
     "apps:server:db:generate": "pnpm run --filter realtime-elo-ranker-server migration:generate",
-    "apps:server:db:revert": "pnpm run --filter realtime-elo-ranker-server migration:revert"
+    "apps:server:db:revert": "pnpm run --filter realtime-elo-ranker-server migration:revert",
+    "apps:simulator:dev": "pnpm run --filter realtime-elo-ranker-simulator dev"
   },
   "devDependencies": {
     "generate-react-cli": "catalog:",

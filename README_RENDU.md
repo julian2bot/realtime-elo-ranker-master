@@ -3,7 +3,7 @@ Julian Marques
 
 ## Installation du projet   
 ```bash
-git clone https://github.com/julian2bot/realtime-elo-ranker.git
+git clone https://github.com/julian2bot/realtime-elo-ranker-master.git
 
 pnpm install
 
@@ -27,6 +27,11 @@ pnpm run apps:client:dev  # lance en localhost:3001
 
 # lancer le serveur
 pnpm run apps:server:dev 
+
+# Puis sur un troisieme terminal
+
+# lancer le simulator
+pnpm run apps:simulator:dev
 ```
 
 
@@ -39,7 +44,7 @@ pnpm run apps:server:dev
 - [X] Un historique des matchs est stocké.
 - [X] Les elos des joueurs sont mis à jour en temps réel.
 - [X] Les joueurs sont stocké en mémoire cache et en base de données.
-- [ ] match aleatoire entre deux joueurs toutes les XX secondes.
+- [X] match aleatoire entre deux joueurs toutes les XX secondes.
 - [ ] interface belle et moderne.
 - [ ] 
 
