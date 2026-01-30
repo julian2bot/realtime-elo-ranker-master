@@ -1,4 +1,4 @@
-import { InitialSchema1769548245854 } from './1769548245854-InitialSchema';
+import { InitialSchema1769548245854 } from '../migrations/1769548245854-InitialSchema';
 import { QueryRunner } from 'typeorm';
 
 describe('InitialSchema1769548245854', () => {

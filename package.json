@@ -17,7 +17,13 @@
     "apps:server:db:revert": "pnpm run --filter realtime-elo-ranker-server migration:revert",
     "apps:simulator:dev": "pnpm run --filter realtime-elo-ranker-simulator dev",
     "test:all": "pnpm --filter realtime-elo-ranker-server test && pnpm --filter ./apps/realtime-elo-ranker-client test",
-"test:all:cov": "pnpm --filter realtime-elo-ranker-server test:cov && pnpm --filter ./apps/realtime-elo-ranker-client test:cov"
+    "test:all:cov": "pnpm --filter realtime-elo-ranker-server test:cov && pnpm --filter ./apps/realtime-elo-ranker-client test:cov",
+  
+    "final:client": "pnpm run --filter realtime-elo-ranker-client dev",
+    "final:server": "pnpm run --filter realtime-elo-ranker-server start:dev",
+    "final:simulator": "pnpm run --filter realtime-elo-ranker-simulator dev"
+    
+    
   },
   "devDependencies": {
     "generate-react-cli": "catalog:",

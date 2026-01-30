@@ -5,16 +5,17 @@ Julian Marques
 ```bash
 git clone https://github.com/julian2bot/realtime-elo-ranker-master.git
 
+cd ./realtime-elo-ranker-master
+
 pnpm install
 
-pnpm run build
 
 # Migration joueur / match si aucune migration n'existe
-pnpm run apps:server:db:generate --src/migrations/InitialSchema
+pnpm run apps:server:db:generate -- src/migrations/InitialSchema
 pnpm run apps:server:db:migrate
 
 # Sinon, utiliser la migration joueur / match déjà réalisée (meilleure option)
-pnpm run apps:server:db:migrate
+pnpm run apps:server:db:migrate # FAIRE LUI
 ```  
 
 
@@ -32,6 +33,12 @@ pnpm run apps:server:dev
 
 # Lancer le simulator
 pnpm run apps:simulator:dev
+
+
+# s'il y a des erreurs du au chemin absolue / relatif:
+clear ; pnpm run final:client
+clear ; pnpm run final:server
+clear ; pnpm run final:simulator
 ```
 
 ## Objectifs
