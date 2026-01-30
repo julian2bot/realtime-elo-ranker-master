@@ -10,7 +10,7 @@ pnpm install
 pnpm run build
 
 # migration joueur / match si rien dans migrations
-pnpm run apps:server:db:generate -- src/migrations/InitialSchema
+pnpm run apps:server:db:generate --src/migrations/InitialSchema
 pnpm run apps:server:db:migrate
 
 # sinon utilisé la migration joueur / match deja realiser (option plus sur)
