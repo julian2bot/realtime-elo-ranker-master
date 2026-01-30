@@ -256,6 +256,4 @@ Remarques :
 - Par sa conception, le système Elo est mathématiquement un système transactionnel, c'est-à-dire que la somme des classements des joueurs reste constante après chaque match. Cela signifie que le classement gagné par un joueur est équivalent au classement perdu par son adversaire.
 
 # RENDU   
-
-
-VOIR (README_RENDU.pdf)[README_RENDU.pdf]
+[VOIR (README_RENDU.pdf)](README_RENDU.pdf)
