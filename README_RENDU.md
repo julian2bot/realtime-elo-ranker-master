@@ -35,14 +35,16 @@ pnpm run apps:server:dev
 # Puis sur un troisieme terminal
 
 # Lancer le simulator
-pnpm run apps:simulator:dev
+pnpm run apps:simulator:dev # changer la valeur du nombre d'appels (en ms). Actuellement, c'est 10 ms (car c'est plus marrant)
+# changer la valeur: dans apps\realtime-elo-ranker-simulator\index.ts
+# changer SIMULATION_INTERVAL_MS par la valeur voulue
 
 
 # s'il y a des erreurs du au chemin absolue / relatif:
 clear ; pnpm run libs:ui:build
 clear ; pnpm run final:client
 clear ; pnpm run final:server
-clear ; pnpm run final:simulator
+clear ; pnpm run final:simulator 
 ```
 
 ## Objectifs

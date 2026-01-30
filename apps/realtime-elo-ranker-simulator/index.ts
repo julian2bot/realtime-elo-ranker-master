@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:8888/api';
-const SIMULATION_INTERVAL_MS = 10; // Every 5 seconds
+const SIMULATION_INTERVAL_MS = 10; // Every 10 ms
 const DRAW_PROBABILITY = 0.1; // 10% chance of a draw
 
 interface PlayerRanking {
