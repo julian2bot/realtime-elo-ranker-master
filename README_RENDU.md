@@ -21,6 +21,9 @@ pnpm run apps:server:db:migrate # FAIRE LUI
 
 ## Lancer le projet
 ```bash
+# build l'ui
+pnpm run libs:ui:build
+
 # Lancer le client
 pnpm run apps:client:dev  # lance sur localhost:3001
 
@@ -36,6 +39,7 @@ pnpm run apps:simulator:dev
 
 
 # s'il y a des erreurs du au chemin absolue / relatif:
+clear ; pnpm run libs:ui:build
 clear ; pnpm run final:client
 clear ; pnpm run final:server
 clear ; pnpm run final:simulator
