@@ -9,31 +9,39 @@ pnpm install
 
 pnpm run build
 
-# migration joueur / match si rien dans migrations
+# Migration joueur / match si aucune migration n'existe
 pnpm run apps:server:db:generate --src/migrations/InitialSchema
 pnpm run apps:server:db:migrate
 
-# sinon utilisé la migration joueur / match deja realiser (option plus sur)
+# Sinon, utiliser la migration joueur / match déjà réalisée (meilleure option)
 pnpm run apps:server:db:migrate
 ```  
 
 
-## Lancer le serveur
+## Lancer le projet
 ```bash
-# lancer le client
-pnpm run apps:client:dev  # lance en localhost:3001
+# Lancer le client
+pnpm run apps:client:dev  # lance sur localhost:3001
 
 # Puis sur un second terminal 
 
-# lancer le serveur
+# Lancer le serveur
 pnpm run apps:server:dev 
 
 # Puis sur un troisieme terminal
 
-# lancer le simulator
+# Lancer le simulator
 pnpm run apps:simulator:dev
 ```
 
+## Objectifs
+- [X] Créer un serveur HTTP en utilisant NestJS
+- [X] Créer un service de type Singleton pour stocker des données du classement en cache
+- [X] Créer un service pour écrire et lire les données des joueurs en base de données
+- [X] Ajouter la logique métier pour mettre à jour le classement des joueurs
+- [X] Ajouter un EventEmitter pour émettre des notifications en temps réel
+- [X] Implémenter l'API décrite par le Swagger fourni
+- [X] Tester l'application avec des tests unitaires et des tests d'intégration
 
 
 ## Fonctionnalités
@@ -45,13 +53,29 @@ pnpm run apps:simulator:dev
 - [X] Les elos des joueurs sont mis à jour en temps réel.
 - [X] Les joueurs sont stocké en mémoire cache et en base de données.
 - [X] match aleatoire entre deux joueurs toutes les XX secondes.
-- [ ] interface belle et moderne.
-- [ ] 
+- [X] Simulation de match.
+- [ ] Interface belle et moderne.
+- [X] Test  
 
 
 
-## Tests
-ouaiiissssssss c'est fait (on y croit)
+## Tests  
+
+### lancer les tests  
+```bash
+# À la racine du projet
+clear ; pnpm --filter realtime-elo-ranker-server test
+```
+
+### lancer le coverage  
+```bash
+# À la racine du projet
+clear ; pnpm --filter realtime-elo-ranker-server test:cov
+```
+
+### Résultats
+![coverage js resultat](images/coverage.png)
+
 
 
 
