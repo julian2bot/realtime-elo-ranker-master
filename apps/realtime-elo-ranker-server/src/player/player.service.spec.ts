@@ -46,4 +46,11 @@ describe('PlayerService', () => {
     expect(mockRankings.updateRanking).toHaveBeenCalledWith('n', 1200);
     expect(res.id).toBe('n');
   });
+
+  it('onModuleInit logs message', async () => {
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+    await service.onModuleInit();
+    expect(consoleSpy).toHaveBeenCalledWith("init module player");
+    consoleSpy.mockRestore();
+  });
 });
